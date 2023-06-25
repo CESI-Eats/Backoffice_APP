@@ -1,14 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using StarterKitMvvm;
 
 namespace Backoffice_APP.ViewModels
 {
-    public class MainViewModel
+    public class CustomMainViewModel : MainViewModel
     {
-        public DashboardViewModel Dashboard { get; set; }
-        
+        public MenuViewModel MenuViewModel { get; set; }
+        public CustomMainViewModel()
+        {
+            MenuViewModel = new MenuViewModel(_navigationStore);
+        }
     }
 }

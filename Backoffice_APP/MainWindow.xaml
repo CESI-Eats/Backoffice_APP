@@ -21,14 +21,17 @@
             <DataTemplate DataType="{x:Type viewmodels:DashboardViewModel}">
                 <views:DashboardView/>
             </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:MenuViewModel}">
+                <views:MenuView/>
+            </DataTemplate>
         </Grid.Resources>
-        <TabControl TabStripPlacement="Left">
-            <TabItem Header="Dashboard">
-                <ContentControl Content="{Binding Dashboard}"/>
-            </TabItem>
-            <TabItem Header="Account management">
 
-            </TabItem>
-        </TabControl>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <ContentControl Content="{Binding MenuViewModel}"/>
+        <ContentControl Grid.Column="1" Content="{Binding CurrentViewModel}"/>
     </Grid>
 </Window>
