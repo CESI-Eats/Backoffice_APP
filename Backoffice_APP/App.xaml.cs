@@ -9,8 +9,6 @@ namespace Backoffice_APP
     /// </summary>
     public partial class App : Application
     {
-        private readonly AppUser appUser = new();
-
         private readonly LoginWindow _loginWindow;
 
         private readonly CustomMainViewModel _mainViewModel;
@@ -21,7 +19,7 @@ namespace Backoffice_APP
             _loginWindow = new LoginWindow();
 
             _mainViewModel = new CustomMainViewModel();
-            _loginViewModel = new LoginViewModel(appUser);
+            _loginViewModel = new LoginViewModel();
         }
 
         protected override void OnStartup(StartupEventArgs e)

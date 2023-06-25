@@ -18,7 +18,7 @@ namespace Backoffice_APP.Services
             httpClient = new HttpClient();
         }
 
-        public async Task<bool> Login(string mail, string password, AppUser appUser)
+        public async Task<bool> Login(string mail, string password)
         {
             try
             {
@@ -40,9 +40,9 @@ namespace Backoffice_APP.Services
 
                 if (response.IsSuccessStatusCode)
                 {
-                    appUser.Mail = mail;
-                    appUser.Token = loginResponse?.Token;
-                    appUser.RefreshToken = loginResponse?.RefreshToken;
+                    AppUser.Mail = mail;
+                    AppUser.Token = loginResponse?.Token;
+                    AppUser.RefreshToken = loginResponse?.RefreshToken;
 
                     return true;
                 }

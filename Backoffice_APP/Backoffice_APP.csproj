@@ -8,6 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="App.xaml.cs~RFec9a0aa.TMP" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="LiveCharts.Wpf" Version="0.9.7" />
     <PackageReference Include="LoadingIndicators.WPF.NetCore" Version="1.0.1" />
     <PackageReference Include="MaterialDesignThemes" Version="4.9.0" />

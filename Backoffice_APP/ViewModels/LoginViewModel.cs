@@ -46,9 +46,9 @@ namespace Backoffice_APP.ViewModels
 
         public ICommand LoginCommand { get; set; }
 
-        public LoginViewModel(AppUser appUser)
+        public LoginViewModel()
         {
-            LoginCommand = new LoginCommand(this, appUser);
+            LoginCommand = new LoginCommand(this);
         }
 
         public void OnLoginSuccessful()

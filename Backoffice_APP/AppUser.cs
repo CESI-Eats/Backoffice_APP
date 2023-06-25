@@ -2,8 +2,8 @@
 {
     public class AppUser
     {
-        public string? Mail { get; set; }
-        public string? Token { get; set; }
-        public string? RefreshToken { get; set; }
+        public static string? Mail { get; set; }
+        public static string? Token { get; set; }
+        public static string? RefreshToken { get; set; }
     }
 }
