@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Backoffice_APP.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,6 +23,12 @@ namespace Backoffice_APP
         public LoginWindow()
         {
             InitializeComponent();
+        }
+
+        private void PasswordBox_KeyUp(object sender, KeyEventArgs e)
+        {
+            LoginViewModel loginViewModel = (LoginViewModel)DataContext;
+            loginViewModel.Password = passwordBox.Password;
         }
     }
 }

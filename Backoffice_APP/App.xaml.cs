@@ -1,5 +1,4 @@
 ﻿using Backoffice_APP.ViewModels;
-using StarterKitMvvm;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -15,6 +14,8 @@ namespace Backoffice_APP
     /// </summary>
     public partial class App : Application
     {
+        private readonly AppUser appUser = new();
+
         private readonly LoginWindow _loginWindow;
 
         private readonly MainViewModel _mainViewModel;
@@ -25,7 +26,7 @@ namespace Backoffice_APP
             _loginWindow = new LoginWindow();
 
             _mainViewModel = new MainViewModel();
-            _loginViewModel = new LoginViewModel();
+            _loginViewModel = new LoginViewModel(appUser);
         }
 
         protected override void OnStartup(StartupEventArgs e)
@@ -40,6 +41,8 @@ namespace Backoffice_APP
         private void OnLoginSuccessful()
         {
             _loginViewModel.LoginSuccessful -= OnLoginSuccessful;
+            _mainViewModel.Dashboard = new DashboardViewModel();
+
             MainWindow = new MainWindow()
             {
                 DataContext = _mainViewModel
