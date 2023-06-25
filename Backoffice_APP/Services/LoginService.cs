@@ -9,16 +9,10 @@ using System.Threading.Tasks;
 
 namespace Backoffice_APP.Services
 {
-    public class LoginService
+    public class LoginService : BaseService
     {
-        private readonly HttpClient httpClient;
 
-        public LoginService()
-        {
-            httpClient = new HttpClient();
-        }
-
-        public async Task<bool> Login(string mail, string password)
+        public async Task Login(string mail, string password)
         {
             try
             {
@@ -30,30 +24,15 @@ namespace Backoffice_APP.Services
 
                 string json = JsonConvert.SerializeObject(loginRequest);
 
-                var content = new StringContent(json, Encoding.UTF8, "application/json");
+                var loginResponse = JsonConvert.DeserializeObject<LoginResponse>(await MakeRequest(json));
 
-                var response = await httpClient.PostAsync(ConfigurationManager.AppSettings["login_url"], content);
-
-                string jsonResponse = await response.Content.ReadAsStringAsync();
-
-                var loginResponse = JsonConvert.DeserializeObject<LoginResponse>(jsonResponse);
-
-                if (response.IsSuccessStatusCode)
-                {
-                    AppUser.Mail = mail;
-                    AppUser.Token = loginResponse?.Token;
-                    AppUser.RefreshToken = loginResponse?.RefreshToken;
-
-                    return true;
-                }
-                else
-                {
-                    throw new Exception(loginResponse?.Message);
-                }
+                AppUser.Mail = mail;
+                AppUser.Token = loginResponse?.Token;
+                AppUser.RefreshToken = loginResponse?.RefreshToken;
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-                throw ex;
+                throw new Exception(e.Message);
             }
         }
     }
