@@ -14,49 +14,53 @@ namespace Backoffice_APP.ViewModels
     {
         public string[] Labels { get; set; }
 
-        public ChartValues<ObservableValue> Incomes { get; }
-        public ObservableValue TodayIncome { get; set;}
+        private string _errorMessage;
 
-
-        private ChartValues<int> _successfulPaymentsCount;
-        public ChartValues<int> SuccessfulPaymentsCount
+        public string ErrorMessage
         {
-            get { return _successfulPaymentsCount; }
-            set { _successfulPaymentsCount = value; OnPropertyChanged(nameof(SuccessfulPaymentsCount)); }
-        }
-        private ChartValues<int> _failedPaymentsCount;
-        public ChartValues<int> FailedPaymentsCount
-        {
-            get { return _failedPaymentsCount; }
-            set { _failedPaymentsCount = value; OnPropertyChanged(nameof(FailedPaymentsCount)); }
+            get { return _errorMessage; }
+            set { _errorMessage = value; OnPropertyChanged(nameof(ErrorMessage)); }
         }
 
+
+        public ChartValues<ObservableValue> OrdersValue { get; }
+
+        private ObservableValue _todayOrdersValue;
+
+        public ObservableValue TodayOrdersValue
+        {
+            get { return _todayOrdersValue; }
+            set { 
+                _todayOrdersValue = value;
+                OnPropertyChanged(nameof(TodayOrdersValue));
+            }
+        }
+
+        public ChartValues<double> LastMonthIncomesSum { get; set; }
+        public ChartValues<double> LastMonthOutcomesSum { get; set; }
+
+        private double _lastMonthIncome;
+        public double LastMonthIncome
+        {
+            get { return _lastMonthIncome; }
+            set { _lastMonthIncome = value; OnPropertyChanged(nameof(LastMonthIncome)); }
+        }
+
+
+        public ObservableCollection<Order> Orders { get; }
 
         public Func<double, string> Formatter { get; set; }
         public Func<ChartPoint, string> PointLabel { get; set; }
-
-        public ObservableCollection<Order> Orders { get; }
 
         public ICommand GetOrdersCommand { get; }
         public ICommand GetPaymentsCommand { get; }
 
         public DashboardViewModel()
         {
-            Incomes = new ChartValues<ObservableValue>();
-            //TodayIncome = new ObservableValue(50);
-            //Incomes.AddRange(new[]
-            //{
-            //    new ObservableValue(10),
-            //    new ObservableValue(20),
-            //    new ObservableValue(80),
-            //    TodayIncome
-            //});
+            OrdersValue = new ChartValues<ObservableValue>();
 
-            SuccessfulPaymentsCount = new ChartValues<int>();
-            FailedPaymentsCount = new ChartValues<int>();
-
-            SuccessfulPaymentsCount.Add(8);
-            FailedPaymentsCount.Add(2);
+            LastMonthIncomesSum = new ChartValues<double>();
+            LastMonthOutcomesSum = new ChartValues<double>();
 
             Orders = new ObservableCollection<Order>();
             GetOrdersCommand = new GetOrdersCommand(this, new GetOrdersService());

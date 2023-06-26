@@ -30,8 +30,7 @@ namespace Backoffice_APP.Commands
             }
             catch (Exception e)
             {
-
-                throw;
+                _dashboardViewModel.ErrorMessage = e.Message;
             }
         }
     }

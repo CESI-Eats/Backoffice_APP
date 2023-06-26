@@ -33,22 +33,39 @@ namespace Backoffice_APP.Commands
                 for (int i = 6; i >= 0; i--)
                 {
                     var date = dateToday.AddDays(-i);
-                    var sumForTheDay = response.Message.Where(payment => payment.Date.Date == date.Date)
+                    var sumForTheDay = response.Message.Where(payment => payment.Date.Date == date.Date && payment.Status.ToLower() == "success")
                                                .Sum(payment => payment.Amount);
                     sumList.Add(new ObservableValue(sumForTheDay));
                 }
 
-                _dashboardViewModel.TodayIncome = sumList.Last();
-                sumList.Remove(_dashboardViewModel.TodayIncome);
+                _dashboardViewModel.TodayOrdersValue = sumList.Last();
+                sumList.Remove(_dashboardViewModel.TodayOrdersValue);
 
-                _dashboardViewModel.Incomes.Clear();
-                _dashboardViewModel.Incomes.AddRange(sumList);
-                _dashboardViewModel.Incomes.Add(_dashboardViewModel.TodayIncome);
+                _dashboardViewModel.OrdersValue.Clear();
+                _dashboardViewModel.OrdersValue.AddRange(sumList);
+                _dashboardViewModel.OrdersValue.Add(_dashboardViewModel.TodayOrdersValue);
+
+                DateTime dateThirtyDaysAgo = DateTime.Now.AddDays(-30);
+
+                double creditSum = response.Message.Where(payment => payment.Date >= dateThirtyDaysAgo
+                                                          && payment.Type.ToLower() == "credit")
+                                        .Sum(payment => payment.Amount);
+
+                double debitSum = response.Message.Where(payment => payment.Date >= dateThirtyDaysAgo
+                                                         && payment.Type.ToLower() == "debit")
+                                       .Sum(payment => payment.Amount);
+
+                _dashboardViewModel.LastMonthIncomesSum.Clear();
+                _dashboardViewModel.LastMonthIncomesSum.Add(creditSum);
+
+                _dashboardViewModel.LastMonthOutcomesSum.Clear();
+                _dashboardViewModel.LastMonthOutcomesSum.Add(debitSum);
+
+                _dashboardViewModel.LastMonthIncome = creditSum - debitSum;
             }
-            catch (Exception)
+            catch (Exception e)
             {
-
-                throw;
+                _dashboardViewModel.ErrorMessage = e.Message;
             }
         }
     }
