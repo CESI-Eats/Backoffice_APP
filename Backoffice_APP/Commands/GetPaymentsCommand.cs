@@ -32,10 +32,18 @@ namespace Backoffice_APP.Commands
 
                 for (int i = 6; i >= 0; i--)
                 {
-                    var date = dateToday.AddDays(-i);
-                    var sumForTheDay = response.Message.Where(payment => payment.Date.Date == date.Date && payment.Status.ToLower() == "success")
-                                               .Sum(payment => payment.Amount);
-                    sumList.Add(new ObservableValue(sumForTheDay));
+                    DateTime date = dateToday.AddDays(-i);
+                    double creditSumForTheDay = response.Message.Where(payment => payment.Date.Date == date.Date
+                                                                               && payment.Status.ToLower() == "success"
+                                                                               && payment.Type.ToLower() == "credit")
+                                                             .Sum(payment => payment.Amount);
+
+                    double debitSumForTheDay = response.Message.Where(payment => payment.Date.Date == date.Date
+                                                                              && payment.Status.ToLower() == "success"
+                                                                              && payment.Type.ToLower() == "debit")
+                                                            .Sum(payment => payment.Amount);
+
+                    sumList.Add(new ObservableValue(creditSumForTheDay - debitSumForTheDay));
                 }
 
                 _dashboardViewModel.TodayOrdersValue = sumList.Last();
@@ -48,10 +56,12 @@ namespace Backoffice_APP.Commands
                 DateTime dateThirtyDaysAgo = DateTime.Now.AddDays(-30);
 
                 double creditSum = response.Message.Where(payment => payment.Date >= dateThirtyDaysAgo
+                                                          && payment.Status.ToLower() == "success"
                                                           && payment.Type.ToLower() == "credit")
                                         .Sum(payment => payment.Amount);
 
                 double debitSum = response.Message.Where(payment => payment.Date >= dateThirtyDaysAgo
+                                                         && payment.Status.ToLower() == "success"
                                                          && payment.Type.ToLower() == "debit")
                                        .Sum(payment => payment.Amount);
 
