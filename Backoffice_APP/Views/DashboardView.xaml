@@ -21,6 +21,7 @@
         <Grid Grid.Row="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
+                <RowDefinition Height="auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
@@ -67,20 +68,30 @@
                 </StackPanel>
             </Grid>
 
-            <Grid Margin="20 30" Grid.Row="1" Grid.ColumnSpan="2">
+            <StackPanel Grid.Row="1" Grid.ColumnSpan="2">
+                <Button Margin="30" Command="{Binding GetPaymentsCommand}" Content="Refresh Profits" Width="150"/>
+                <Separator/>
+            </StackPanel>
+
+            <Grid Margin="20 30" Grid.Row="2" Grid.ColumnSpan="2">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
-                <TextBlock Text="Manage orders" FontSize="25"/>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Manage orders" FontSize="25"/>
+                    <Button Margin="20 0" Command="{Binding GetOrdersCommand}" Content="Refresh Orders" Width="150"/>
+                </StackPanel>
 
                 <ListView Grid.Row="1" ItemsSource="{Binding Orders}">
                     <ListView.View>
                         <GridView>
                             <GridViewColumn Header="ID" DisplayMemberBinding="{Binding _Id}" />
-                            <GridViewColumn Header="Amount" DisplayMemberBinding="{Binding Amount}" />
                             <GridViewColumn Header="Status" DisplayMemberBinding="{Binding Status}" />
+                            <GridViewColumn Header="Amount" DisplayMemberBinding="{Binding Amount}" />
+                            <GridViewColumn Header="With Commission Amount" DisplayMemberBinding="{Binding WithCommissionAmount}" />
+                            <GridViewColumn Header="Delivery Amount" DisplayMemberBinding="{Binding DeliveryAmount}" />
                             <GridViewColumn Header="Date" DisplayMemberBinding="{Binding Date}" />
                         </GridView>
                     </ListView.View>

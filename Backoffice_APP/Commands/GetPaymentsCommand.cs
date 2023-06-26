@@ -6,6 +6,7 @@ using StarterKitMvvm;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Backoffice_APP.Commands
@@ -66,10 +67,10 @@ namespace Backoffice_APP.Commands
                                        .Sum(payment => payment.Amount);
 
                 _dashboardViewModel.LastMonthIncomesSum.Clear();
-                _dashboardViewModel.LastMonthIncomesSum.Add(creditSum);
+                _dashboardViewModel.LastMonthIncomesSum.Add(new ObservableValue(creditSum));
 
                 _dashboardViewModel.LastMonthOutcomesSum.Clear();
-                _dashboardViewModel.LastMonthOutcomesSum.Add(debitSum);
+                _dashboardViewModel.LastMonthOutcomesSum.Add(new ObservableValue(debitSum));
 
                 _dashboardViewModel.LastMonthIncome = creditSum - debitSum;
             }

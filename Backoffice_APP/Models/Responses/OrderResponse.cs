@@ -1,7 +1,5 @@
-﻿using Microsoft.VisualBasic;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Windows.Documents;
 
 namespace Backoffice_APP.Models.Responses
 {
@@ -21,5 +19,7 @@ namespace Backoffice_APP.Models.Responses
         public string Status { get; set; }
         public double Amount { get; set; }
         public DateTime Date { get; set; }
+        public double WithCommissionAmount { get; set; }
+        public double DeliveryAmount { get; set; }
     }
 }

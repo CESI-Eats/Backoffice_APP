@@ -23,6 +23,7 @@ namespace Backoffice_APP.Commands
             try
             {
                 OrderResponse response = await _getCommandService.GetCommands();
+                _dashboardViewModel.Orders.Clear();
                 foreach (Order order in response.Message)
                 {
                     _dashboardViewModel.Orders.Add(order);

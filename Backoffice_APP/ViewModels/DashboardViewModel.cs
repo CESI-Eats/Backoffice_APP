@@ -22,6 +22,12 @@ namespace Backoffice_APP.ViewModels
             set { _errorMessage = value; OnPropertyChanged(nameof(ErrorMessage)); }
         }
 
+        private bool _isLoading;
+        public bool IsLoading
+        {
+            get { return _isLoading; }
+            set { _isLoading = value; OnPropertyChanged(nameof(IsLoading)); }
+        }
 
         public ChartValues<ObservableValue> OrdersValue { get; }
 
@@ -36,8 +42,8 @@ namespace Backoffice_APP.ViewModels
             }
         }
 
-        public ChartValues<double> LastMonthIncomesSum { get; set; }
-        public ChartValues<double> LastMonthOutcomesSum { get; set; }
+        public ChartValues<ObservableValue> LastMonthIncomesSum { get; set; }
+        public ChartValues<ObservableValue> LastMonthOutcomesSum { get; set; }
 
         private double _lastMonthIncome;
         public double LastMonthIncome
@@ -59,8 +65,8 @@ namespace Backoffice_APP.ViewModels
         {
             OrdersValue = new ChartValues<ObservableValue>();
 
-            LastMonthIncomesSum = new ChartValues<double>();
-            LastMonthOutcomesSum = new ChartValues<double>();
+            LastMonthIncomesSum = new ChartValues<ObservableValue>();
+            LastMonthOutcomesSum = new ChartValues<ObservableValue>();
 
             Orders = new ObservableCollection<Order>();
             GetOrdersCommand = new GetOrdersCommand(this, new GetOrdersService());
