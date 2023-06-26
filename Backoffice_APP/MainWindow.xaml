@@ -21,6 +21,9 @@
             <DataTemplate DataType="{x:Type viewmodels:DashboardViewModel}">
                 <views:DashboardView/>
             </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:ManageAccountsViewModel}">
+                <views:ManageAccountsView/>
+            </DataTemplate>
             <DataTemplate DataType="{x:Type viewmodels:MenuViewModel}">
                 <views:MenuView/>
             </DataTemplate>

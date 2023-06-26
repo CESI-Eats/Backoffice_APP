@@ -42,7 +42,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <RadioButton Command="{Binding DashboardNavigationCommand}" Content="Dashboard" Style="{StaticResource MenuRadioButton}" IsChecked="True" Padding="20" Grid.Row="0"/>
-        <RadioButton Content="Account Management" Style="{StaticResource MenuRadioButton}" Padding="20" Grid.Row="1"/>
+        <RadioButton Command="{Binding ManageAccountsNavigationCommand}" Content="Account Management" Style="{StaticResource MenuRadioButton}" Padding="20" Grid.Row="1"/>
 
         <StackPanel Margin="10" Grid.Row="2" VerticalAlignment="Bottom" HorizontalAlignment="Left">
             <TextBlock Text="Logged as :" Foreground="White"/>
