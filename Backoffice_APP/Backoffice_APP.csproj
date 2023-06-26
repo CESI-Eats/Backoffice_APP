@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <None Remove="App.xaml.cs~RFec9a0aa.TMP" />
+    <None Remove="Services\GetPaymentsService.cs~RF13cc937b.TMP" />
   </ItemGroup>
 
   <ItemGroup>

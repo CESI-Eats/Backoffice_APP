@@ -11,14 +11,13 @@ namespace Backoffice_APP
     {
         private readonly LoginWindow _loginWindow;
 
-        private readonly CustomMainViewModel _mainViewModel;
+        private CustomMainViewModel _mainViewModel;
         private readonly LoginViewModel _loginViewModel;
 
         public App()
         {
             _loginWindow = new LoginWindow();
 
-            _mainViewModel = new CustomMainViewModel();
             _loginViewModel = new LoginViewModel();
         }
 
@@ -28,12 +27,14 @@ namespace Backoffice_APP
 
             _loginWindow.DataContext = _loginViewModel;
             _loginWindow.Show();
-            OnLoginSuccessful();
+            //OnLoginSuccessful();
             base.OnStartup(e);
         }
 
         private void OnLoginSuccessful()
         {
+            _mainViewModel = new CustomMainViewModel();
+
             _loginViewModel.LoginSuccessful -= OnLoginSuccessful;
 
             MainWindow = new MainWindow()

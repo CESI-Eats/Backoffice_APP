@@ -74,9 +74,10 @@
                 <ListView Grid.Row="1" ItemsSource="{Binding Orders}">
                     <ListView.View>
                         <GridView>
-                            <GridViewColumn Header="ID" DisplayMemberBinding="{Binding Id}" />
+                            <GridViewColumn Header="ID" DisplayMemberBinding="{Binding _Id}" />
                             <GridViewColumn Header="Amount" DisplayMemberBinding="{Binding Amount}" />
                             <GridViewColumn Header="Status" DisplayMemberBinding="{Binding Status}" />
+                            <GridViewColumn Header="Date" DisplayMemberBinding="{Binding Date}" />
                         </GridView>
                     </ListView.View>
                 </ListView>

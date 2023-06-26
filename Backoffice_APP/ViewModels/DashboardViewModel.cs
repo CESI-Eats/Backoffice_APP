@@ -4,6 +4,9 @@ using StarterKitMvvm;
 using System;
 using System.Collections.ObjectModel;
 using Backoffice_APP.Models.Responses;
+using System.Windows.Input;
+using Backoffice_APP.Commands;
+using Backoffice_APP.Services;
 
 namespace Backoffice_APP.ViewModels
 {
@@ -32,19 +35,22 @@ namespace Backoffice_APP.ViewModels
         public Func<double, string> Formatter { get; set; }
         public Func<ChartPoint, string> PointLabel { get; set; }
 
-        public ObservableCollection<OrderResponse> Orders { get; }
+        public ObservableCollection<Order> Orders { get; }
+
+        public ICommand GetOrdersCommand { get; }
+        public ICommand GetPaymentsCommand { get; }
 
         public DashboardViewModel()
         {
             Incomes = new ChartValues<ObservableValue>();
-            TodayIncome = new ObservableValue(50);
-            Incomes.AddRange(new[]
-            {
-                new ObservableValue(10),
-                new ObservableValue(20),
-                new ObservableValue(80),
-                TodayIncome
-            });
+            //TodayIncome = new ObservableValue(50);
+            //Incomes.AddRange(new[]
+            //{
+            //    new ObservableValue(10),
+            //    new ObservableValue(20),
+            //    new ObservableValue(80),
+            //    TodayIncome
+            //});
 
             SuccessfulPaymentsCount = new ChartValues<int>();
             FailedPaymentsCount = new ChartValues<int>();
@@ -52,12 +58,19 @@ namespace Backoffice_APP.ViewModels
             SuccessfulPaymentsCount.Add(8);
             FailedPaymentsCount.Add(2);
 
-            Orders = new ObservableCollection<OrderResponse>();
+            Orders = new ObservableCollection<Order>();
+            GetOrdersCommand = new GetOrdersCommand(this, new GetOrdersService());
+            GetOrdersCommand.Execute(null);
 
-            Labels = new[] { "Maria", "Susan", "Charles", "Frida" };
+            GetPaymentsCommand = new GetPaymentsCommand(this, new GetPaymentsService());
+            GetPaymentsCommand.Execute(null);
+
+            Labels = new[] { "D-6", "D-5", "D-4", "D-3", "D-2", "D-1", "Today"};
+
             Formatter = value => value.ToString("N");
-
             PointLabel = chartPoint => string.Format("{0} ({1:P})", chartPoint.Y, (chartPoint.Participation));
+
+
         }
     }
 }

@@ -24,7 +24,7 @@ namespace Backoffice_APP.Services
 
                 string json = JsonConvert.SerializeObject(loginRequest);
 
-                var loginResponse = JsonConvert.DeserializeObject<LoginResponse>(await MakeRequest(json));
+                var loginResponse = JsonConvert.DeserializeObject<LoginResponse>(await Post(ConfigurationManager.AppSettings["login_url"], json));
 
                 AppUser.Mail = mail;
                 AppUser.Token = loginResponse?.Token;
