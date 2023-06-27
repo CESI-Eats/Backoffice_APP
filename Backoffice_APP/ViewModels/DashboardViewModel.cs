@@ -10,6 +10,7 @@ using Backoffice_APP.Services;
 using System.Configuration;
 using SocketIOClient;
 using Newtonsoft.Json;
+using System.Linq;
 
 namespace Backoffice_APP.ViewModels
 {
@@ -96,10 +97,27 @@ namespace Backoffice_APP.ViewModels
             socket.On("payment.created", response =>
             {
                 Payment payment = JsonConvert.DeserializeObject<Payment>(response.GetValue().ToString());
-                var newTodayProfit = new ObservableValue(payment.Type == "credit" ? TodayProfit.Value + payment.Amount : TodayProfit.Value - payment.Amount);
-                ProfitValues.Remove(TodayProfit);
-                ProfitValues.Add(newTodayProfit);
-                TodayProfit = newTodayProfit;
+                if (payment.Status.ToLower() == "success")
+                {
+                    var newTodayProfit = new ObservableValue(payment.Type == "credit" ? TodayProfit.Value + payment.Amount : TodayProfit.Value - payment.Amount);
+                    ProfitValues.Remove(TodayProfit);
+                    ProfitValues.Add(newTodayProfit);
+                    TodayProfit = newTodayProfit;
+
+                    if (payment.Type == "credit")
+                    {
+                        ObservableValue newLastMonthIncomeSum = new ObservableValue(LastMonthIncomesSum.FirstOrDefault().Value + payment.Amount);
+                        LastMonthIncomesSum.Clear();
+                        LastMonthIncomesSum.Add(newLastMonthIncomeSum);
+                    }
+                    else
+                    {
+                        ObservableValue newLastMonthOutcomeSum = new ObservableValue(LastMonthOutcomesSum.FirstOrDefault().Value + payment.Amount);
+                        LastMonthOutcomesSum.Clear();
+                        LastMonthOutcomesSum.Add(newLastMonthOutcomeSum);
+                    }
+                    LastMonthIncome = LastMonthIncomesSum.FirstOrDefault().Value - LastMonthOutcomesSum.FirstOrDefault().Value;
+                }
             });
             await socket.ConnectAsync();
         }
