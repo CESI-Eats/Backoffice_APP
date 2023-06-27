@@ -1,5 +1,4 @@
-﻿using Backoffice_APP.ViewModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,24 +10,19 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Backoffice_APP
+namespace Backoffice_APP.Views
 {
     /// <summary>
-    /// Interaction logic for LoginWindow.xaml
+    /// Interaction logic for ManageAccountsView.xaml
     /// </summary>
-    public partial class LoginWindow : Window
+    public partial class ManageAccountsView : UserControl
     {
-        public LoginWindow()
+        public ManageAccountsView()
         {
             InitializeComponent();
-        }
-
-        private void PasswordBox_KeyUp(object sender, KeyEventArgs e)
-        {
-            LoginViewModel loginViewModel = (LoginViewModel)DataContext;
-            loginViewModel.Password = passwordBox.Password;
         }
     }
 }

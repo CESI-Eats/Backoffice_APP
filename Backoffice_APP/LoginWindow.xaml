@@ -4,15 +4,22 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:li="http://github.com/zeluisping/loadingIndicators/xaml/controls"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         Background="{DynamicResource MaterialDesignPaper}"
         TextElement.FontWeight="Medium"
         TextElement.FontSize="14"
         FontFamily="{materialDesign:MaterialDesignFont}"
-        xmlns:local="clr-namespace:Backoffice_APP"
+        xmlns:local="clr-namespace:Backoffice_APP" 
+        xmlns:converters="clr-namespace:Backoffice_APP.Converters"
+        xmlns:viewmodels="clr-namespace:Backoffice_APP.ViewModels" 
+        d:DataContext="{d:DesignInstance Type=viewmodels:LoginViewModel}"
         WindowStartupLocation="CenterScreen"
         mc:Ignorable="d"
         Title="Login" Height="350" Width="600">
+    <Window.Resources>
+        <converters:InverseBoolToVisibilityConverter x:Key="InverseBoolToVisibilityConverter"/>
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -24,17 +31,20 @@
 
         <TextBlock Grid.Row="0" Margin="10" FontSize="24" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Back-office of CESI Eats" />
 
-        <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="10 50 10 10" HorizontalAlignment="Center">
+        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="10 50 10 10" HorizontalAlignment="Center">
             <TextBlock Width="100" Text="Username:" VerticalAlignment="Center" />
-            <TextBox x:Name="txtUsername" Width="200" VerticalAlignment="Center" />
+            <TextBox Width="200" VerticalAlignment="Center" Text="{Binding Mail}"/>
         </StackPanel>
 
-        <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="10" HorizontalAlignment="Center">
+        <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="10" HorizontalAlignment="Center">
             <TextBlock Width="100" Text="Password:" VerticalAlignment="Center" />
-            <PasswordBox x:Name="txtPassword" Width="200" VerticalAlignment="Center" />
+            <PasswordBox x:Name="passwordBox" KeyUp="PasswordBox_KeyUp" Width="200" VerticalAlignment="Center" />
         </StackPanel>
 
-        <Button Grid.Row="4" Width="100" Height="30" Margin="10" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Login"/>
+        <li:LoadingIndicator Mode="Arcs" Foreground="#683cb4" Grid.Row="3" IsActive="{Binding IsLoading}"/>
+        <Button Visibility="{Binding IsLoading, Converter={StaticResource InverseBoolToVisibilityConverter}}" Command="{Binding LoginCommand}" Grid.Row="3" Width="100" Height="30" Margin="10" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Login"/>
+
+        <TextBlock Grid.Row="4" Text="{Binding ErrorMessage}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
     </Grid>
 
 </Window>

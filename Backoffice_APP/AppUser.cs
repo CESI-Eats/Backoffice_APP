@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Backoffice_APP
+﻿namespace Backoffice_APP
 {
     public class AppUser
     {
-        public string? Mail { get; set; }
-        public string? Token { get; set; }
-        public string? RefreshToken { get; set; }
+        public static string? Mail { get; set; }
+        public static string? Token { get; set; }
+        public static string? RefreshToken { get; set; }
     }
 }

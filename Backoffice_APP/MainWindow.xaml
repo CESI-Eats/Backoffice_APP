@@ -11,16 +11,30 @@
         FontFamily="{materialDesign:MaterialDesignFont}"
         WindowState="Maximized"
         xmlns:local="clr-namespace:Backoffice_APP"
+        xmlns:viewmodels="clr-namespace:Backoffice_APP.ViewModels"
+        xmlns:views="clr-namespace:Backoffice_APP.Views" 
+        d:DataContext="{d:DesignInstance Type=viewmodels:DashboardViewModel}"
         mc:Ignorable="d"
         Title="Backoffice - CESI Eats">
     <Grid>
-        <TabControl TabStripPlacement="Left">
-            <TabItem Header="Dashboard">
-                
-            </TabItem>
-            <TabItem Header="Account management">
-                
-            </TabItem>
-        </TabControl>
+        <Grid.Resources>
+            <DataTemplate DataType="{x:Type viewmodels:DashboardViewModel}">
+                <views:DashboardView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:ManageAccountsViewModel}">
+                <views:ManageAccountsView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:MenuViewModel}">
+                <views:MenuView/>
+            </DataTemplate>
+        </Grid.Resources>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <ContentControl Content="{Binding MenuViewModel}"/>
+        <ContentControl Grid.Column="1" Content="{Binding CurrentViewModel}"/>
     </Grid>
 </Window>

@@ -1,11 +1,5 @@
 ﻿using Backoffice_APP.ViewModels;
 using StarterKitMvvm;
-using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace Backoffice_APP
@@ -17,14 +11,13 @@ namespace Backoffice_APP
     {
         private readonly LoginWindow _loginWindow;
 
-        private readonly MainViewModel _mainViewModel;
+        private CustomMainViewModel _mainViewModel;
         private readonly LoginViewModel _loginViewModel;
 
         public App()
         {
             _loginWindow = new LoginWindow();
 
-            _mainViewModel = new MainViewModel();
             _loginViewModel = new LoginViewModel();
         }
 
@@ -34,12 +27,16 @@ namespace Backoffice_APP
 
             _loginWindow.DataContext = _loginViewModel;
             _loginWindow.Show();
+            //OnLoginSuccessful();
             base.OnStartup(e);
         }
 
         private void OnLoginSuccessful()
         {
+            _mainViewModel = new CustomMainViewModel();
+
             _loginViewModel.LoginSuccessful -= OnLoginSuccessful;
+
             MainWindow = new MainWindow()
             {
                 DataContext = _mainViewModel
