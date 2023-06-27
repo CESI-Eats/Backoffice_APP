@@ -36,7 +36,7 @@
                 </Grid.RowDefinitions>
                 <lvc:CartesianChart Grid.Row="0" LegendLocation="Left">
                     <lvc:CartesianChart.Series>
-                        <lvc:ColumnSeries Title="Profit (€)" Values="{Binding OrdersValue}"/>
+                        <lvc:ColumnSeries Title="Profit (€)" Values="{Binding ProfitValues}"/>
                     </lvc:CartesianChart.Series>
                     <lvc:CartesianChart.AxisX>
                         <lvc:Axis Title="Day" Labels="{Binding Labels}"></lvc:Axis>
@@ -47,7 +47,7 @@
                 </lvc:CartesianChart>
                 <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
                     <TextBlock Text="Today's Profit (€): " FontSize="20" VerticalAlignment="Center"/>
-                    <TextBlock Text="{Binding TodayOrdersValue.Value}" FontSize="25" Foreground="#683cb4" VerticalAlignment="Center"/>
+                    <TextBlock Text="{Binding TodayProfit.Value}" FontSize="25" Foreground="#683cb4" VerticalAlignment="Center"/>
                 </StackPanel>
             </Grid>
 

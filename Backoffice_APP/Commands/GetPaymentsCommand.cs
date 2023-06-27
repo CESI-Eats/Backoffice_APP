@@ -47,12 +47,12 @@ namespace Backoffice_APP.Commands
                     sumList.Add(new ObservableValue(creditSumForTheDay - debitSumForTheDay));
                 }
 
-                _dashboardViewModel.TodayOrdersValue = sumList.Last();
-                sumList.Remove(_dashboardViewModel.TodayOrdersValue);
+                _dashboardViewModel.TodayProfit = sumList.Last();
+                sumList.Remove(_dashboardViewModel.TodayProfit);
 
-                _dashboardViewModel.OrdersValue.Clear();
-                _dashboardViewModel.OrdersValue.AddRange(sumList);
-                _dashboardViewModel.OrdersValue.Add(_dashboardViewModel.TodayOrdersValue);
+                _dashboardViewModel.ProfitValues.Clear();
+                _dashboardViewModel.ProfitValues.AddRange(sumList);
+                _dashboardViewModel.ProfitValues.Add(_dashboardViewModel.TodayProfit);
 
                 DateTime dateThirtyDaysAgo = DateTime.Now.AddDays(-30);
 

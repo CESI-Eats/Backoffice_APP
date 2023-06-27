@@ -7,11 +7,15 @@ using Backoffice_APP.Models.Responses;
 using System.Windows.Input;
 using Backoffice_APP.Commands;
 using Backoffice_APP.Services;
+using System.Configuration;
+using SocketIOClient;
+using Newtonsoft.Json;
 
 namespace Backoffice_APP.ViewModels
 {
     public class DashboardViewModel : BaseViewModel
     {
+        private SocketIO socket;
         public string[] Labels { get; set; }
 
         private string _errorMessage;
@@ -29,16 +33,16 @@ namespace Backoffice_APP.ViewModels
             set { _isLoading = value; OnPropertyChanged(nameof(IsLoading)); }
         }
 
-        public ChartValues<ObservableValue> OrdersValue { get; }
+        public ChartValues<ObservableValue> ProfitValues { get; }
 
-        private ObservableValue _todayOrdersValue;
+        private ObservableValue _todayProfit;
 
-        public ObservableValue TodayOrdersValue
+        public ObservableValue TodayProfit
         {
-            get { return _todayOrdersValue; }
+            get { return _todayProfit; }
             set { 
-                _todayOrdersValue = value;
-                OnPropertyChanged(nameof(TodayOrdersValue));
+                _todayProfit = value;
+                OnPropertyChanged(nameof(TodayProfit));
             }
         }
 
@@ -63,7 +67,7 @@ namespace Backoffice_APP.ViewModels
 
         public DashboardViewModel()
         {
-            OrdersValue = new ChartValues<ObservableValue>();
+            ProfitValues = new ChartValues<ObservableValue>();
 
             LastMonthIncomesSum = new ChartValues<ObservableValue>();
             LastMonthOutcomesSum = new ChartValues<ObservableValue>();
@@ -79,8 +83,31 @@ namespace Backoffice_APP.ViewModels
 
             Formatter = value => value.ToString("N");
             PointLabel = chartPoint => string.Format("{0} ({1:P})", chartPoint.Y, (chartPoint.Participation));
+            ConnectSocket();
+        }
 
+        private async void ConnectSocket()
+        {
+            socket = new SocketIO(ConfigurationManager.AppSettings["socket_url"]);
+            socket.OnConnected += async (sender, e) =>
+            {
+                await socket.EmitAsync("setClientId", AppUser.Token);
+            };
+            socket.On("payment.created", response =>
+            {
+                Payment payment = JsonConvert.DeserializeObject<Payment>(response.GetValue().ToString());
+                var newTodayProfit = new ObservableValue(payment.Type == "credit" ? TodayProfit.Value + payment.Amount : TodayProfit.Value - payment.Amount);
+                ProfitValues.Remove(TodayProfit);
+                ProfitValues.Add(newTodayProfit);
+                TodayProfit = newTodayProfit;
+            });
+            await socket.ConnectAsync();
+        }
 
+        public override void Dispose()
+        {
+            socket.DisconnectAsync();
+            base.Dispose();
         }
     }
 }
