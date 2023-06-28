@@ -57,13 +57,9 @@ namespace Backoffice_APP.ViewModels
             set { _lastMonthIncome = value; OnPropertyChanged(nameof(LastMonthIncome)); }
         }
 
-
-        public ObservableCollection<Order> Orders { get; }
-
         public Func<double, string> Formatter { get; set; }
         public Func<ChartPoint, string> PointLabel { get; set; }
 
-        public ICommand GetOrdersCommand { get; }
         public ICommand GetPaymentsCommand { get; }
 
         public DashboardViewModel()
@@ -72,10 +68,6 @@ namespace Backoffice_APP.ViewModels
 
             LastMonthIncomesSum = new ChartValues<ObservableValue>();
             LastMonthOutcomesSum = new ChartValues<ObservableValue>();
-
-            Orders = new ObservableCollection<Order>();
-            GetOrdersCommand = new GetOrdersCommand(this, new GetOrdersService());
-            GetOrdersCommand.Execute(null);
 
             GetPaymentsCommand = new GetPaymentsCommand(this, new GetPaymentsService());
             GetPaymentsCommand.Execute(null);

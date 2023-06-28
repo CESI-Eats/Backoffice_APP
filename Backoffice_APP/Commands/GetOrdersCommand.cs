@@ -4,15 +4,16 @@ using Backoffice_APP.ViewModels;
 using StarterKitMvvm;
 using System;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Backoffice_APP.Commands
 {
     public class GetOrdersCommand : AsyncBaseCommand
     {
-        private readonly DashboardViewModel _dashboardViewModel;
+        private readonly CommandsViewModel _dashboardViewModel;
         private readonly GetOrdersService _getCommandService;
 
-        public GetOrdersCommand(DashboardViewModel dashboardViewModel, GetOrdersService getCommandService)
+        public GetOrdersCommand(CommandsViewModel dashboardViewModel, GetOrdersService getCommandService)
         {
             _dashboardViewModel = dashboardViewModel;
             _getCommandService = getCommandService;
@@ -31,7 +32,7 @@ namespace Backoffice_APP.Commands
             }
             catch (Exception e)
             {
-                _dashboardViewModel.ErrorMessage = e.Message;
+                MessageBox.Show(e.Message);
             }
         }
     }
