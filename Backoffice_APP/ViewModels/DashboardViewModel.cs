@@ -119,7 +119,15 @@ namespace Backoffice_APP.ViewModels
                     LastMonthIncome = LastMonthIncomesSum.FirstOrDefault().Value - LastMonthOutcomesSum.FirstOrDefault().Value;
                 }
             });
-            await socket.ConnectAsync();
+            try
+            {
+                await socket.ConnectAsync();
+                ErrorMessage = string.Empty;
+            }
+            catch (Exception e)
+            {
+                ErrorMessage = e.Message;
+            }
         }
 
         public override void Dispose()

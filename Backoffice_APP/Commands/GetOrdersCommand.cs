@@ -1,6 +1,7 @@
 ﻿using Backoffice_APP.Models.Responses;
 using Backoffice_APP.Services;
 using Backoffice_APP.ViewModels;
+using SocketIOClient.Messages;
 using StarterKitMvvm;
 using System;
 using System.Threading.Tasks;
@@ -28,6 +29,7 @@ namespace Backoffice_APP.Commands
                 {
                     _dashboardViewModel.Orders.Add(order);
                 }
+                _dashboardViewModel.ErrorMessage = string.Empty;
             }
             catch (Exception e)
             {

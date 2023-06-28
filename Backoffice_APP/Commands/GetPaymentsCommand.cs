@@ -73,6 +73,8 @@ namespace Backoffice_APP.Commands
                 _dashboardViewModel.LastMonthOutcomesSum.Add(new ObservableValue(debitSum));
 
                 _dashboardViewModel.LastMonthIncome = creditSum - debitSum;
+
+                _dashboardViewModel.ErrorMessage = string.Empty;
             }
             catch (Exception e)
             {
