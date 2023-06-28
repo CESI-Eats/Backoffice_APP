@@ -27,7 +27,7 @@ namespace Backoffice_APP
 
             _loginWindow.DataContext = _loginViewModel;
             _loginWindow.Show();
-            //OnLoginSuccessful();
+            OnLoginSuccessful();
             base.OnStartup(e);
         }
 
