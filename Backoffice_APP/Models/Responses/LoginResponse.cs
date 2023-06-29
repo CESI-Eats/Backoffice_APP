@@ -10,6 +10,7 @@ namespace Backoffice_APP.Models.Responses
     {
         public string? Token;
         public string? RefreshToken;
+        public string? NewRefreshToken;
         public string? Message;
     }
 }
