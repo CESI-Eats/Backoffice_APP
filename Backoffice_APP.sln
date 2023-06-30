@@ -5,7 +5,7 @@ VisualStudioVersion = 17.3.32922.545
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Backoffice_APP", "Backoffice_APP\Backoffice_APP.csproj", "{DB40E9E6-095A-4ED3-B816-719BBE69FEED}"
 EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "CesiEats-Backoffice-Installer", "CesiEats-Backoffice-Installer\CesiEats-Backoffice-Installer.vdproj", "{FDA7A820-6A4E-42E3-A32F-33EBD601856C}"
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "CesiEats-Backoffice", "CesiEats-Backoffice-Installer\CesiEats-Backoffice-Installer.vdproj", "{FDA7A820-6A4E-42E3-A32F-33EBD601856C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,6 +19,7 @@ Global
 		{DB40E9E6-095A-4ED3-B816-719BBE69FEED}.Release|Any CPU.Build.0 = Release|Any CPU
 		{FDA7A820-6A4E-42E3-A32F-33EBD601856C}.Debug|Any CPU.ActiveCfg = Debug
 		{FDA7A820-6A4E-42E3-A32F-33EBD601856C}.Release|Any CPU.ActiveCfg = Release
+		{FDA7A820-6A4E-42E3-A32F-33EBD601856C}.Release|Any CPU.Build.0 = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
